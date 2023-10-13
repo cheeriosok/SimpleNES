@@ -1,6 +1,4 @@
-SimpleNES C++ -> Go
-
-Using as Template. 
+# SimpleNES C++ -> Go
 =============
 
 
