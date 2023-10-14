@@ -121,5 +121,3 @@ Default keybindings:
  Down          | Down
  Left          | Left
  Right         | Right
-
-
