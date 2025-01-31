@@ -63,7 +63,7 @@ namespace sn
         m_ppu.reset();
 
         m_window.create(sf::VideoMode(NESVideoWidth * m_screenScale, NESVideoHeight * m_screenScale),
-                        "SimpleNES", sf::Style::Titlebar | sf::Style::Close | sf::Style::Resize);
+                        "SimpleNES", sf::Style::Titlebar | sf::Style::Close);
         m_window.setVerticalSyncEnabled(true);
         m_emulatorScreen.create(NESVideoWidth, NESVideoHeight, m_screenScale, sf::Color::White);
 
@@ -95,11 +95,11 @@ namespace sn
                     if (!pause)
                     {
                         m_cycleTimer = std::chrono::high_resolution_clock::now();
-                        LOG(Info) << "Paused." << std::endl;
+                        LOG(Info) << "Unpaused." << std::endl;
                     }
                     else
                     {
-                        LOG(Info) << "Unpaused." << std::endl;
+                        LOG(Info) << "Paused." << std::endl;
                     }
                 }
                 else if (pause && event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::F3)

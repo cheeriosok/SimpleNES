@@ -12,11 +12,14 @@ namespace sn
 
     Byte PictureBus::read(Address addr)
     {
+        // PictureBus is limited to 0x3fff
+        addr = addr & 0x3fff;
+
         if (addr < 0x2000)
         {
             return m_mapper->readCHR(addr);
         }
-        else if (addr < 0x3eff)
+        else if (addr <= 0x3eff)
         {
             const auto index = addr & 0x3ff;
             // Name tables upto 0x3000, then mirrored upto 3eff
@@ -37,7 +40,7 @@ namespace sn
             else /* if (normalizedAddr < 0x3000)*/ //NT3
                 return m_RAM[NameTable3 + index];
         }
-        else if (addr < 0x3fff)
+        else if (addr <= 0x3fff)
         {
             auto paletteAddr = addr & 0x1f;
             return readPalette(paletteAddr);
@@ -56,11 +59,14 @@ namespace sn
 
     void PictureBus::write(Address addr, Byte value)
     {
+        // PictureBus is limited to 0x3fff
+        addr = addr & 0x3fff;
+
         if (addr < 0x2000)
         {
             m_mapper->writeCHR(addr, value);
         }
-        else if (addr < 0x3eff)
+        else if (addr <= 0x3eff)
         {
             const auto index = addr & 0x3ff;
             // Name tables upto 0x3000, then mirrored upto 3eff
@@ -81,7 +87,7 @@ namespace sn
             else                    //NT3
                 m_RAM[NameTable3 + index] = value;
         }
-        else if (addr < 0x3fff)
+        else if (addr <= 0x3fff)
         {
             auto palette = addr & 0x1f;
             // Addresses $3F10/$3F14/$3F18/$3F1C are mirrors of $3F00/$3F04/$3F08/$3F0C
